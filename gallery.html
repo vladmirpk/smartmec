@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Workshop and repair gallery — SMARTMEC Service Motors, Harare.">
+  <title>Gallery | SMARTMEC Service Motors</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body data-page="gallery" data-root="">
+  <div class="topbar" id="site-topbar"></div>
+  <header class="header" id="site-header"></header>
+
+  <main>
+    <section class="hero hero--page" style="--hero-image:url('https://images.unsplash.com/photo-1487754180451-c456f719a1fc?auto=format&amp;fit=crop&amp;w=1800&amp;q=80')">
+      <div class="container hero-content">
+        <p class="eyebrow">Our work</p>
+        <h1>Workshop <em>Gallery</em></h1>
+        <p class="hero-copy">A look at vehicle care, repair and restoration. Replace these sample panels with approved SMARTMEC photographs.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="gallery-filters" role="tablist" aria-label="Filter gallery">
+          <button type="button" class="filter-btn active" data-filter="all">All</button>
+          <button type="button" class="filter-btn" data-filter="mechanical">Mechanical</button>
+          <button type="button" class="filter-btn" data-filter="body">Panel &amp; paint</button>
+          <button type="button" class="filter-btn" data-filter="workshop">Workshop</button>
+        </div>
+
+        <div class="gallery-grid" id="galleryGrid">
+          <figure class="gallery-item tall" data-cat="workshop" style="background-image:url('https://images.unsplash.com/photo-1487754180451-c456f719a1fc?auto=format&amp;fit=crop&amp;w=900&amp;q=80')" data-full="https://images.unsplash.com/photo-1487754180451-c456f719a1fc?auto=format&amp;fit=crop&amp;w=1600&amp;q=85">
+            <figcaption>Workshop floor</figcaption>
+          </figure>
+          <figure class="gallery-item" data-cat="mechanical" style="background-image:url('https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?auto=format&amp;fit=crop&amp;w=800&amp;q=80')" data-full="https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?auto=format&amp;fit=crop&amp;w=1400&amp;q=85">
+            <figcaption>Mechanical work</figcaption>
+          </figure>
+          <figure class="gallery-item" data-cat="body" style="background-image:url('https://images.unsplash.com/photo-1625047509168-a7026f36de04?auto=format&amp;fit=crop&amp;w=800&amp;q=80')" data-full="https://images.unsplash.com/photo-1625047509168-a7026f36de04?auto=format&amp;fit=crop&amp;w=1400&amp;q=85">
+            <figcaption>Panel preparation</figcaption>
+          </figure>
+          <figure class="gallery-item" data-cat="body" style="background-image:url('https://images.unsplash.com/photo-1632823469850-2f77dd9cbe94?auto=format&amp;fit=crop&amp;w=800&amp;q=80')" data-full="https://images.unsplash.com/photo-1632823469850-2f77dd9cbe94?auto=format&amp;fit=crop&amp;w=1400&amp;q=85">
+            <figcaption>Spray painting</figcaption>
+          </figure>
+          <figure class="gallery-item" data-cat="mechanical" style="background-image:url('https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&amp;fit=crop&amp;w=800&amp;q=80')" data-full="https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&amp;fit=crop&amp;w=1400&amp;q=85">
+            <figcaption>Diagnostics</figcaption>
+          </figure>
+          <figure class="gallery-item" data-cat="workshop" style="background-image:url('https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&amp;fit=crop&amp;w=800&amp;q=80')" data-full="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&amp;fit=crop&amp;w=1400&amp;q=85">
+            <figcaption>Vehicle care</figcaption>
+          </figure>
+          <figure class="gallery-item" data-cat="body" style="background-image:url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&amp;fit=crop&amp;w=800&amp;q=80')" data-full="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&amp;fit=crop&amp;w=1400&amp;q=85">
+            <figcaption>Finish &amp; detail</figcaption>
+          </figure>
+        </div>
+        <p class="note-sm" style="text-align:center;margin-top:20px">Sample stock imagery for layout demonstration. Replace with approved SMARTMEC workshop and before/after project photos.</p>
+      </div>
+    </section>
+  </main>
+
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image preview">
+    <button class="lightbox-close" id="lightboxClose" aria-label="Close">×</button>
+    <img id="lightboxImg" alt="Gallery preview">
+  </div>
+
+  <footer id="site-footer"></footer>
+  <script src="js/site.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const items = [...document.querySelectorAll(".gallery-item")];
+      document.querySelectorAll(".filter-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          document.querySelectorAll(".filter-btn").forEach((b) => b.classList.remove("active"));
+          btn.classList.add("active");
+          const f = btn.dataset.filter;
+          items.forEach((el) => {
+            el.hidden = f !== "all" && el.dataset.cat !== f;
+          });
+        });
+      });
+      const box = document.getElementById("lightbox");
+      const img = document.getElementById("lightboxImg");
+      items.forEach((el) => {
+        el.addEventListener("click", () => {
+          img.src = el.dataset.full || el.style.backgroundImage.slice(5, -2).replace(/&quot;/g, "");
+          box.classList.add("open");
+        });
+      });
+      const close = () => box.classList.remove("open");
+      document.getElementById("lightboxClose").onclick = close;
+      box.addEventListener("click", (e) => { if (e.target === box) close(); });
+      document.addEventListener("keydown", (e) => { if (e.key === "Escape") close(); });
+    });
+  </script>
+</body>
+</html>
