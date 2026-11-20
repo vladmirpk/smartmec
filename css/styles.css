@@ -343,6 +343,7 @@ h1 em, h2 em, .accent { color: var(--purple-300); font-style: normal; }
   max-width: 400px;
   width: min(400px, 40%);
   padding: 0;
+  padding-left: clamp(28px, 4.5vw, 72px);
   display: flex;
   flex-direction: column;
   justify-content: center;
