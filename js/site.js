@@ -127,6 +127,76 @@
         if (!d.contains(e.target)) d.removeAttribute("open");
       });
     });
+
+    initHeroCarousel();
+  }
+
+  function initHeroCarousel() {
+    const root = document.querySelector("[data-hero-carousel]");
+    if (!root) return;
+
+    const slides = Array.from(root.querySelectorAll(".hero-slide"));
+    if (slides.length < 2) return;
+
+    const dotsWrap = root.querySelector(".hero-dots");
+    const prevBtn = root.querySelector(".hero-arrow--prev");
+    const nextBtn = root.querySelector(".hero-arrow--next");
+    let index = Math.max(0, slides.findIndex((s) => s.classList.contains("is-active")));
+    let timer = null;
+    const INTERVAL = 6500;
+
+    if (dotsWrap) {
+      dotsWrap.innerHTML = slides
+        .map((_, i) => `<button class="hero-dot${i === index ? " is-active" : ""}" type="button" role="tab" aria-label="Go to slide ${i + 1}" aria-selected="${i === index ? "true" : "false"}"></button>`)
+        .join("");
+    }
+
+    const dots = Array.from(root.querySelectorAll(".hero-dot"));
+
+    function show(i) {
+      index = (i + slides.length) % slides.length;
+      slides.forEach((slide, n) => {
+        const active = n === index;
+        slide.classList.toggle("is-active", active);
+        slide.setAttribute("aria-hidden", active ? "false" : "true");
+      });
+      dots.forEach((dot, n) => {
+        const active = n === index;
+        dot.classList.toggle("is-active", active);
+        dot.setAttribute("aria-selected", active ? "true" : "false");
+      });
+      root.dataset.activeTheme = slides[index].dataset.theme || "dark";
+    }
+
+    function next() { show(index + 1); }
+    function prev() { show(index - 1); }
+
+    function start() {
+      stop();
+      timer = window.setInterval(next, INTERVAL);
+    }
+    function stop() {
+      if (timer) {
+        window.clearInterval(timer);
+        timer = null;
+      }
+    }
+
+    if (nextBtn) nextBtn.addEventListener("click", () => { next(); start(); });
+    if (prevBtn) prevBtn.addEventListener("click", () => { prev(); start(); });
+    dots.forEach((dot, i) => {
+      dot.addEventListener("click", () => { show(i); start(); });
+    });
+
+    root.addEventListener("mouseenter", stop);
+    root.addEventListener("mouseleave", start);
+    root.addEventListener("focusin", stop);
+    root.addEventListener("focusout", (e) => {
+      if (!root.contains(e.relatedTarget)) start();
+    });
+
+    show(index);
+    start();
   }
 
   window.SMARTMEC = {

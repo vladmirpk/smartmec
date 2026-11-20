@@ -15,17 +15,60 @@
   <header class="header" id="site-header"></header>
 
   <main>
-    <section class="hero hero--home hero--banner">
-      <img class="hero-bg" src="assets/banners/home-hero.png" alt="SMARTMEC Service Motors — mechanical, body and paint services">
-      <div class="container hero-content">
-        <img class="hero-logo" src="logo/20251101_211010_0000.png" alt="SMARTMEC Service Motors">
-        <h1>Where Precision Meets <em>Passion</em></h1>
-        <p class="hero-copy">Mechanical Repairs, Panel Beating and Spray Painting — all under one roof.</p>
-        <div class="hero-actions">
-          <a class="btn btn-primary" href="quote.html">Request a Quote →</a>
-          <a class="btn btn-outline-dark" href="#services">Explore Our Services</a>
-        </div>
+    <section class="hero hero--home hero--carousel" data-hero-carousel aria-roledescription="carousel" aria-label="SMARTMEC highlights">
+      <div class="hero-track">
+        <article class="hero-slide is-active" data-theme="light">
+          <img class="hero-bg" src="assets/banners/home-hero.png" alt="SMARTMEC Service Motors banner" loading="eager">
+          <div class="container hero-content">
+            <h1>Where Precision Meets <em>Passion</em></h1>
+            <p class="hero-copy">Mechanical Repairs, Panel Beating and Spray Painting — all under one roof.</p>
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="quote.html">Request a Quote →</a>
+              <a class="btn btn-outline-dark" href="#services">Explore Our Services</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="hero-slide" data-theme="dark">
+          <img class="hero-bg" src="assets/services/honda-full-paint.jpg" alt="Spray painting and refinishing" loading="lazy">
+          <div class="container hero-content">
+            <h1>Body &amp; paint <em>restored</em></h1>
+            <p class="hero-copy">Panel beating, chassis work and spray finishes handled under one roof.</p>
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="autobody.html">View autobody →</a>
+              <a class="btn btn-outline" href="quote.html?service=spray-painting">Request a Quote</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="hero-slide" data-theme="dark">
+          <img class="hero-bg" src="assets/services/clean-engine.jpg" alt="Mechanical diagnostics and repairs" loading="lazy">
+          <div class="container hero-content">
+            <h1>Mechanical care with <em>precision</em></h1>
+            <p class="hero-copy">Diagnostics, servicing and repairs to keep your vehicle performing confidently.</p>
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="mechanical.html">View mechanical →</a>
+              <a class="btn btn-outline" href="quote.html?service=mechanical-diagnostics">Request a Quote</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="hero-slide" data-theme="dark">
+          <img class="hero-bg" src="touchups/1779277234868.jpg" alt="Completed vehicle after SMARTMEC bodywork" loading="lazy">
+          <div class="container hero-content">
+            <h1>Finished with <em>confidence</em></h1>
+            <p class="hero-copy">From assessment to handover — quality workmanship you can see and feel.</p>
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="gallery.html">View gallery →</a>
+              <a class="btn btn-outline" href="contact.html">Contact Us</a>
+            </div>
+          </div>
+        </article>
       </div>
+
+      <button class="hero-arrow hero-arrow--prev" type="button" aria-label="Previous slide">‹</button>
+      <button class="hero-arrow hero-arrow--next" type="button" aria-label="Next slide">›</button>
+      <div class="hero-dots" role="tablist" aria-label="Hero slides"></div>
     </section>
 
     <section class="trust-strip" aria-label="Trust indicators">
