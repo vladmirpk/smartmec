@@ -66,36 +66,28 @@
 
     const footer = document.getElementById("site-footer");
     if (footer) {
-      footer.innerHTML = `<div class="container footer-grid">
+      footer.innerHTML = `<div class="container footer-grid footer-grid--contact">
         <div>
           ${brand(root + "index.html").replace('class="brand"', 'class="brand footer-brand"')}
-          <p style="margin-top:14px">Where precision meets passion. Mechanical repairs, panel beating and spray painting in Harare.</p>
         </div>
         <div>
-          <h3>Explore</h3>
-          <a href="${root}about.html">About us</a>
-          <a href="${root}mechanical.html">Mechanical</a>
-          <a href="${root}autobody.html">Autobody</a>
-          <a href="${root}gallery.html">Gallery</a>
-          <a href="${root}insurance.html">Insurance</a>
-        </div>
-        <div>
-          <h3>Contact</h3>
+          <h3>Address</h3>
           <span>${ADDRESS}</span>
-          <a href="tel:+263785340515">${PHONE_DISPLAY}</a>
-          <a href="mailto:${EMAIL}">${EMAIL}</a>
-          <a href="https://www.smartmecmotors.co.zw" target="_blank" rel="noopener">www.smartmecmotors.co.zw</a>
         </div>
         <div>
-          <h3>Get a quotation</h3>
-          <p>Tell us about your vehicle and the work required. We will follow up with assessment guidance.</p>
-          <a class="btn btn-primary" href="${root}quote.html" style="margin-top:12px">Request a Quote →</a>
+          <h3>Phone</h3>
+          <a href="tel:+263785340515">${PHONE_DISPLAY}</a>
+        </div>
+        <div>
+          <h3>Email</h3>
+          <a href="mailto:${EMAIL}">${EMAIL}</a>
+          <a href="https://www.smartmecmotors.co.zw" target="_blank" rel="noopener" style="margin-top:10px;display:block">www.smartmecmotors.co.zw</a>
         </div>
       </div>
       <div class="footer-bottom">
         <div class="container">
           <span>© <span id="yearNow"></span> Smartmec Service Motors. All rights reserved.</span>
-          <span>Static website · Quotation requests prepared on-device</span>
+          <a href="${root}quote.html">Request a Quote →</a>
         </div>
       </div>`;
     }
