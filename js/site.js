@@ -13,7 +13,7 @@
 
   function brand(href) {
     return `<a class="brand" href="${href}">
-      <span class="brand-mark" aria-hidden="true">SM</span>
+      <img class="brand-logo" src="${(document.body.dataset.root || "")}logo/20251101_211010_0000.png" alt="SMARTMEC Service Motors" width="48" height="48">
       <span class="brand-text"><b>SMARTMEC</b><small>SERVICE MOTORS</small></span>
     </a>`;
   }
