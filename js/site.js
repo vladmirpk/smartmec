@@ -128,48 +128,46 @@
       });
     });
 
-    initHeroCarousel();
   }
 
   function initHeroCarousel() {
     const root = document.querySelector("[data-hero-carousel]");
     if (!root) return;
 
+    const track = root.querySelector(".hero-track");
     const slides = Array.from(root.querySelectorAll(".hero-slide"));
-    if (slides.length < 2) return;
+    if (!track || slides.length < 2) return;
 
     const dotsWrap = root.querySelector(".hero-dots");
     const prevBtn = root.querySelector(".hero-arrow--prev");
     const nextBtn = root.querySelector(".hero-arrow--next");
-    let index = Math.max(0, slides.findIndex((s) => s.classList.contains("is-active")));
+    let index = 0;
     let timer = null;
-    const INTERVAL = 6500;
+    const INTERVAL = 5500;
 
     if (dotsWrap) {
       dotsWrap.innerHTML = slides
-        .map((_, i) => `<button class="hero-dot${i === index ? " is-active" : ""}" type="button" role="tab" aria-label="Go to slide ${i + 1}" aria-selected="${i === index ? "true" : "false"}"></button>`)
+        .map((_, i) => `<button class="hero-dot${i === 0 ? " is-active" : ""}" type="button" aria-label="Go to slide ${i + 1}"></button>`)
         .join("");
     }
-
     const dots = Array.from(root.querySelectorAll(".hero-dot"));
 
-    function show(i) {
-      index = (i + slides.length) % slides.length;
+    function goTo(i) {
+      index = ((i % slides.length) + slides.length) % slides.length;
+      track.style.transform = `translate3d(-${index * 100}%, 0, 0)`;
       slides.forEach((slide, n) => {
-        const active = n === index;
-        slide.classList.toggle("is-active", active);
-        slide.setAttribute("aria-hidden", active ? "false" : "true");
+        const on = n === index;
+        slide.classList.toggle("is-active", on);
+        slide.setAttribute("aria-hidden", on ? "false" : "true");
       });
       dots.forEach((dot, n) => {
-        const active = n === index;
-        dot.classList.toggle("is-active", active);
-        dot.setAttribute("aria-selected", active ? "true" : "false");
+        dot.classList.toggle("is-active", n === index);
       });
-      root.dataset.activeTheme = slides[index].dataset.theme || "dark";
+      root.dataset.activeTheme = slides[index].getAttribute("data-theme") || "dark";
     }
 
-    function next() { show(index + 1); }
-    function prev() { show(index - 1); }
+    function next() { goTo(index + 1); }
+    function prev() { goTo(index - 1); }
 
     function start() {
       stop();
@@ -182,22 +180,39 @@
       }
     }
 
-    if (nextBtn) nextBtn.addEventListener("click", () => { next(); start(); });
-    if (prevBtn) prevBtn.addEventListener("click", () => { prev(); start(); });
+    if (nextBtn) nextBtn.addEventListener("click", (e) => { e.preventDefault(); next(); start(); });
+    if (prevBtn) prevBtn.addEventListener("click", (e) => { e.preventDefault(); prev(); start(); });
     dots.forEach((dot, i) => {
-      dot.addEventListener("click", () => { show(i); start(); });
+      dot.addEventListener("click", (e) => { e.preventDefault(); goTo(i); start(); });
     });
 
     root.addEventListener("mouseenter", stop);
     root.addEventListener("mouseleave", start);
-    root.addEventListener("focusin", stop);
-    root.addEventListener("focusout", (e) => {
-      if (!root.contains(e.relatedTarget)) start();
+
+    // Touch / swipe
+    let startX = 0;
+    let deltaX = 0;
+    root.addEventListener("touchstart", (e) => {
+      startX = e.changedTouches[0].clientX;
+      deltaX = 0;
+      stop();
+    }, { passive: true });
+    root.addEventListener("touchmove", (e) => {
+      deltaX = e.changedTouches[0].clientX - startX;
+    }, { passive: true });
+    root.addEventListener("touchend", () => {
+      if (Math.abs(deltaX) > 40) {
+        if (deltaX < 0) next();
+        else prev();
+      }
+      start();
     });
 
-    show(index);
+    goTo(0);
     start();
   }
+
+  document.addEventListener("DOMContentLoaded", initHeroCarousel);
 
   window.SMARTMEC = {
     WHATSAPP,
