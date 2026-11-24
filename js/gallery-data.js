@@ -139,6 +139,25 @@ window.SMARTMEC_GALLERY = {
         "IMG_20260204_172208.jpg",
         "IMG_20260204_173512.jpg"
       ]
+    },
+    {
+      id: "crisp",
+      title: "Workshop highlights",
+      eyebrow: "Fresh capture",
+      blurb: "Crisp workshop photography — diagnostics, body repair, spray detail, hybrid systems and finish work.",
+      folder: "assets/pictures",
+      filter: "workshop",
+      images: [
+        "diagnostics-tablet.jpg",
+        "diagnostics-studio.jpg",
+        "diagnostics-check.jpg",
+        "body-lift-repair.jpg",
+        "spray-caliper.jpg",
+        "hybrid-badge.jpg",
+        "wheel-refinish.jpg",
+        "mechanic-wrench.jpg",
+        "service-collage.jpg"
+      ]
     }
   ]
 };
