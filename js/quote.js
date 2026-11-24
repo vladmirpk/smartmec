@@ -22,7 +22,6 @@
 
   const state = {
     step: 1,
-    photos: [],
     data: {},
     ref: "",
     lastText: ""
@@ -306,8 +305,7 @@
       <p style="margin:0 0 14px;font-weight:600">${esc(data.serviceLabels.join(", ") || "—")}</p>
       <h4>Problem / damage</h4>
       <p style="margin:0 0 8px">${esc(data.description)}</p>
-      ${data.damage ? `<p style="margin:0 0 14px;color:var(--ink-soft)">${esc(data.damage)}</p>` : ""}
-      <p style="margin:0 0 18px;font-size:12px;color:var(--muted)">${state.photos.length} photo(s) on this device. Prefer WhatsApp to send images with the request.</p>
+      ${data.damage ? `<p style="margin:0 0 18px;color:var(--ink-soft)">${esc(data.damage)}</p>` : `<p style="margin:0 0 18px"></p>`}
       <h4>Quotation status</h4>
       ${estimateHtml}
     `;
@@ -358,9 +356,6 @@ ${data.serviceLabels.map((s) => `- ${s}`).join("\n")}
 PROBLEM / DAMAGE
 ${data.description}
 ${data.damage ? `\nAdditional damage notes:\n${data.damage}` : ""}
-
-PHOTOS
-${state.photos.length} image(s) selected on customer device.
 
 ${priceBlock}
 Address: ${window.SMARTMEC.ADDRESS}
@@ -575,67 +570,9 @@ Email: ${window.SMARTMEC.EMAIL}
     }
   }
 
-  function setupUploads() {
-    const zone = $("#uploadZone");
-    const input = $("#photoInput");
-    const preview = $("#photoPreview");
-
-    function sync() {
-      preview.innerHTML = "";
-      state.photos.forEach((file, idx) => {
-        const fig = document.createElement("figure");
-        const img = document.createElement("img");
-        img.alt = file.name;
-        img.src = URL.createObjectURL(file);
-        const btn = document.createElement("button");
-        btn.type = "button";
-        btn.setAttribute("aria-label", "Remove image");
-        btn.textContent = "×";
-        btn.onclick = () => {
-          state.photos.splice(idx, 1);
-          sync();
-        };
-        fig.append(img, btn);
-        preview.appendChild(fig);
-      });
-      $("#photoCount").textContent = state.photos.length
-        ? `${state.photos.length} image(s) ready on this device`
-        : "PNG or JPG · up to 8 images · kept on this device";
-    }
-
-    function addFiles(list) {
-      const incoming = [...list].filter((f) => f.type.startsWith("image/"));
-      state.photos = state.photos.concat(incoming).slice(0, 8);
-      sync();
-    }
-
-    zone.addEventListener("click", () => input.click());
-    zone.addEventListener("keydown", (e) => {
-      if (e.key === "Enter" || e.key === " ") {
-        e.preventDefault();
-        input.click();
-      }
-    });
-    input.addEventListener("change", (e) => addFiles(e.target.files));
-    ["dragenter", "dragover"].forEach((ev) =>
-      zone.addEventListener(ev, (e) => {
-        e.preventDefault();
-        zone.classList.add("dragover");
-      })
-    );
-    ["dragleave", "drop"].forEach((ev) =>
-      zone.addEventListener(ev, (e) => {
-        e.preventDefault();
-        zone.classList.remove("dragover");
-        if (ev === "drop") addFiles(e.dataTransfer.files);
-      })
-    );
-  }
-
   function init() {
     if (!$("#quoteWizard")) return;
     renderServiceChecks();
-    setupUploads();
     bindActionButtons();
     goTo(1);
     restoreDraft();
